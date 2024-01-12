@@ -1,69 +1,38 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: %i[show edit update destroy]
-
-  # GET /foods or /foods.json
+  # Action to display a list of foods for a specific user
   def index
-    @foods = Food.all
+    @user = User.includes(:foods).find(params[:user_id])
+    @food = @user.foods
   end
 
-  # GET /foods/1 or /foods/1.json
-  def show; end
-
-  # GET /foods/new
+  # Action to render a form for creating a new food
   def new
-    @food = Food.new
+    @user = current_user
+    @food = @user.foods.build
   end
 
-  # GET /foods/1/edit
-  def edit; end
-
-  # POST /foods or /foods.json
+  # Action to create a new food
   def create
-    @food = Food.new(food_params)
-
-    respond_to do |format|
-      if @food.save
-        format.html { redirect_to food_url(@food), notice: 'Food was successfully created.' }
-        format.json { render :show, status: :created, location: @food }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
-      end
+    @food = current_user.foods.build(food_params)
+    if @food.save
+      redirect_to user_foods_path(current_user)
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /foods/1 or /foods/1.json
-  def update
-    respond_to do |format|
-      if @food.update(food_params)
-        format.html { redirect_to food_url(@food), notice: 'Food was successfully updated.' }
-        format.json { render :show, status: :ok, location: @food }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /foods/1 or /foods/1.json
+  # Action to destroy a food and its associations in recipe foods
   def destroy
-    @food.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to foods_url, notice: 'Food was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @food = current_user.foods.find(params[:id])
+    RecipeFood.where(food_id: @food.id).destroy_all
+    @food.destroy
+    redirect_to user_foods_path(current_user), notice: 'Food successfully deleted'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_food
-    @food = Food.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
+  # Strong parameters to whitelist and require for food creation
   def food_params
-    params.require(:food).permit(:name, :measurement_unit, :price, :quantity, :user_id)
+    params.require(:food).permit(:name, :measurement_unit, :price, :quantity)
   end
 end

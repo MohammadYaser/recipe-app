@@ -1,0 +1,37 @@
+<!-- Container for the 'Public Recipes' page -->
+<div class="container">
+  <!-- Heading for the 'Public Recipes' page -->
+  <h1>Public Recipes</h1>
+  
+  <!-- Container for the table -->
+  <div class="table-container">
+    <!-- Table displaying public recipes -->
+    <table class="foods-table">
+      <thead>
+        <!-- Table header with column names -->
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through each public recipe in @p_recipes -->
+        <% @p_recipes.each do |recipe| %>
+          <!-- Table row for each public recipe -->
+          <tr>
+            <!-- Display the name of the recipe as a link to its show page -->
+            <td><%= link_to recipe.name, user_recipe_path(recipe.user, recipe), class: "resipe-name" %></td>
+            <!-- Display a truncated version of the recipe description -->
+            <td><%= truncate(recipe.description, length: 30) %></td>
+            <!-- Button to remove the recipe, with conditional disabling based on ownership -->
+            <td>
+              <%= button_to "Remove", user_recipe_path(recipe.user, recipe), method: :delete,
+                            disabled: recipe.user != current_user, class: "disabled" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
