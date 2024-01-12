@@ -1,69 +1,54 @@
 class RecipeFoodsController < ApplicationController
-  before_action :set_recipe_food, only: %i[show edit update destroy]
+  before_action :set_user_and_recipe
 
-  # GET /recipe_foods or /recipe_foods.json
+  # Action to display a list of all recipe foods
   def index
     @recipe_foods = RecipeFood.all
   end
 
-  # GET /recipe_foods/1 or /recipe_foods/1.json
-  def show; end
+  # Action to show details of a specific recipe food
+  def show
+    @recipe_foods = RecipeFood.find_by_id(params[:id])
 
-  # GET /recipe_foods/new
+    # Redirect to the index page if the recipe food is not found
+    return unless @recipe_foods.nil?
+
+    redirect_to recipe_foods_path
+  end
+
+  # Action to render a form for adding a new recipe food
   def new
     @recipe_food = RecipeFood.new
   end
 
-  # GET /recipe_foods/1/edit
-  def edit; end
-
-  # POST /recipe_foods or /recipe_foods.json
+  # Action to create a new recipe food
   def create
-    @recipe_food = RecipeFood.new(recipe_food_params)
+    @recipe_food = @recipe.recipe_foods.build(recipe_food_params)
 
-    respond_to do |format|
-      if @recipe_food.save
-        format.html { redirect_to recipe_food_url(@recipe_food), notice: 'Recipe food was successfully created.' }
-        format.json { render :show, status: :created, location: @recipe_food }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @recipe_food.errors, status: :unprocessable_entity }
-      end
+    if @recipe_food.save
+      redirect_to user_recipe_path(@user, @recipe), notice: 'Ingredient added successfully.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /recipe_foods/1 or /recipe_foods/1.json
-  def update
-    respond_to do |format|
-      if @recipe_food.update(recipe_food_params)
-        format.html { redirect_to recipe_food_url(@recipe_food), notice: 'Recipe food was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recipe_food }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @recipe_food.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /recipe_foods/1 or /recipe_foods/1.json
+  # Action to destroy a recipe food
   def destroy
-    @recipe_food.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to recipe_foods_url, notice: 'Recipe food was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @recipe_food = @recipe.recipe_foods.find(params[:id])
+    @recipe_food.destroy
+    redirect_to user_recipe_path(@user, @recipe), notice: 'Ingredient successfully deleted'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_recipe_food
-    @recipe_food = RecipeFood.find(params[:id])
+  # Set user and recipe based on parameters
+  def set_user_and_recipe
+    @user = User.find(params[:user_id])
+    @recipe = @user.recipes.find(params[:recipe_id])
   end
 
-  # Only allow a list of trusted parameters through.
+  # Define permitted parameters for recipe food
   def recipe_food_params
-    params.require(:recipe_food).permit(:quantity, :food_id, :recipe_id)
+    params.require(:recipe_food).permit(:food_id, :quantity)
   end
 end

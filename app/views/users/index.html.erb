@@ -1,14 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Users</h1>
-
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+<div class="welcome-container">
+  <% if user_signed_in? %>
+    <div class="welcome-message">
+      <p>Hello, <%= current_user.name %>! Welcome to our wonderful app.</p>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New user", new_user_path %>

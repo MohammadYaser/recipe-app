@@ -1,42 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<!-- Container for the recipes -->
+<div class="container">
+  <!-- Heading for the recipes section -->
+  <h1>Recipes</h1>
+  
+  <!-- Container for the table displaying recipes -->
+  <div class="table-container">
+    <!-- Table displaying recipes -->
+    <table class="foods-table">
+      <!-- Table header with column names -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <!-- Table body with recipe details -->
+      <tbody>
+        <!-- Loop through each recipe and display its information -->
+        <% @recipes.each do |recipe| %>
+          <tr>
+            <!-- Display the name of the recipe with a link to its details -->
+            <td><%= link_to recipe.name, user_recipe_path(@user, recipe), class: "recipe-name" %></td>
+            
+            <!-- Display a truncated description of the recipe -->
+            <td><%= truncate(recipe.description, length: 30) %></td>
+            
+            <!-- Button to remove the recipe -->
+            <td><%= button_to "Remove", user_recipe_path(@user, recipe), method: :delete %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<h1>Recipes</h1>
-
-<%= link_to "New recipe", new_recipe_path %>
-
-<div id="recipes">
-  <% @recipes.each do |recipe| %>
-    <div>
-      <div>
-        <p><%= link_to recipe.name, recipe %></p>
-        <%= button_to "Delete", recipe_path(recipe), method: :delete %>
-      </div>
-      <p><%= recipe.description %></p>
-    </div>
-  <% end %>
+  <!-- Link to create a new recipe -->
+  <%= link_to "New Recipe", new_user_recipe_path(@user), class: "add-food-link" %>
 </div>
-
-
-<style>
-  #recipes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #recipes > div {
-    border: 1px solid black;
-    width: 50%;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-
-  #recipes > div > div {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  #recipes > div > div > p {
-    margin: 0;
-  }
-</style>

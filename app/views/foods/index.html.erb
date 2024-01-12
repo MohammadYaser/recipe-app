@@ -1,76 +1,43 @@
-<p style="color: green"><%= notice %></p>
+<!-- This is the main container for the Foods page -->
+<div class="container">
+  <!-- Heading for the Foods page with a custom class -->
+  <h1 class="foods-heading">Foods</h1>
 
-<main id="foods">
-  <h2><%= link_to "Add food", new_food_path %></h2>
-<!--  <p>Amount of food items to buy: <%#= @foods.length %> | Total value of food needed: $<%#= @total_price %></p>-->
-  <table>
-    <thead>
-    <tr>
-      <th>Food</th>
-      <th>Measurement unit</th>
-      <th>Unit price</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @foods.each do |food| %>
-      <tr>
-        <td><%= link_to food.name, food %></td>
-        <td><%= food.measurement_unit %></td>
-        <td>$<%= food.price %></td>
-        <td><%= button_to "Delete", food_path(food), method: :delete %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-</main>
+  <!-- Link to navigate to the 'Add a food' page with a custom class -->
+  <%= link_to 'Add a food', new_user_food_path(@user), class: "add-food-link float-right" %>
 
-<style>
-    body {
-        font-family: sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1, h2 {
-        text-align: center;
-    }
-
-    p {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        border-top: 1px solid #ddd;
-    }
-
-    th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    thead {
-        background-color: #eee;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f7f7f7;
-    }
-
-    .price {
-        text-align: right;
-    }
-
-    button {
-        background-color: #f00;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-</style>
+  <!-- Container for the table displaying food information -->
+  <div class="table-container">
+    <!-- Table element with a custom class -->
+    <table class="foods-table">
+      <!-- Table header -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Measurement Unit</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <!-- Table body containing food data -->
+      <tbody>
+        <!-- Loop through each food item to populate the table rows -->
+        <% @food.each do |food| %>
+          <tr>
+            <!-- Display the name of the food -->
+            <td><%= food.name %></td>
+            <!-- Display the measurement unit of the food -->
+            <td><%= food.measurement_unit %></td>
+            <!-- Display the price of the food with a currency symbol -->
+            <td>$ <%= food.price %></td>
+            <!-- Display the quantity of the food -->
+            <td><%= food.quantity %></td>
+            <!-- Button to remove the food, linked to the appropriate action -->
+            <td><%= button_to 'Remove', user_food_path(@user, food), method: :delete, class: "remove-button"%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
