@@ -1,9 +1,11 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /foods or /foods.json
   def index
-    @foods = Food.all
+    @foods = current_user.foods
+    # @total_price = calculate_total_price(@foods)
   end
 
   # GET /foods/1 or /foods/1.json
@@ -20,6 +22,7 @@ class FoodsController < ApplicationController
   # POST /foods or /foods.json
   def create
     @food = Food.new(food_params)
+    @food.user_id = current_user.id
 
     respond_to do |format|
       if @food.save
@@ -65,5 +68,15 @@ class FoodsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def food_params
     params.require(:food).permit(:name, :measurement_unit, :price, :quantity, :user_id)
+  end
+
+  def calculate_total_price(foods)
+    total_price = 0
+
+    foods.each do |food|
+      total_price += food.price
+    end
+
+    total_price
   end
 end

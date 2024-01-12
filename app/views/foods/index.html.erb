@@ -1,14 +1,76 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Foods</h1>
+<main id="foods">
+  <h2><%= link_to "Add food", new_food_path %></h2>
+<!--  <p>Amount of food items to buy: <%#= @foods.length %> | Total value of food needed: $<%#= @total_price %></p>-->
+  <table>
+    <thead>
+    <tr>
+      <th>Food</th>
+      <th>Measurement unit</th>
+      <th>Unit price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= link_to food.name, food %></td>
+        <td><%= food.measurement_unit %></td>
+        <td>$<%= food.price %></td>
+        <td><%= button_to "Delete", food_path(food), method: :delete %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</main>
 
-<div id="foods">
-  <% @foods.each do |food| %>
-    <%= render food %>
-    <p>
-      <%= link_to "Show this food", food %>
-    </p>
-  <% end %>
-</div>
+<style>
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
-<%= link_to "New food", new_food_path %>
+    h1, h2 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border-top: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    thead {
+        background-color: #eee;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f7f7f7;
+    }
+
+    .price {
+        text-align: right;
+    }
+
+    button {
+        background-color: #f00;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+</style>
