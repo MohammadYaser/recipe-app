@@ -35,7 +35,8 @@ RSpec.describe 'Testing RecipeFood#new view, it', type: :feature do
 
   # Test: It should add a food to the recipe when the form is submitted.
   it 'add a food to the recipe when the form is submitted' do
-    # Fill in the form fields, click 'Add Ingredient', and check for the expected redirection and content on the recipe page.
+    # Fill in the form fields, click 'Add Ingredient',
+    # and check for the expected redirection and content on the recipe page.
     select(@food.name, from: 'Food')
     fill_in('recipe_food_quantity', with: 10)
     click_button('Add Ingredient')
