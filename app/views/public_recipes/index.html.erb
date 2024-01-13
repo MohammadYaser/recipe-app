@@ -12,6 +12,7 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th>test</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -21,10 +22,17 @@
           <!-- Table row for each public recipe -->
           <tr>
             <!-- Display the name of the recipe as a link to its show page -->
-            <td><%= link_to recipe.name, user_recipe_path(recipe.user, recipe), class: "resipe-name" %></td>
+            <td>
+              <%= link_to recipe.name, user_recipe_path(recipe.user, recipe), class: "resipe-name" %><br>
+              By: <%= current_user.name %>
+            </td>
             <!-- Display a truncated version of the recipe description -->
             <td><%= truncate(recipe.description, length: 30) %></td>
             <!-- Button to remove the recipe, with conditional disabling based on ownership -->
+            <td>
+              <h3>Total food items: <%= @count_of_items %></h3>
+              <h3>Total price: $<%= @total %></h3>
+            </td>
             <td>
               <%= button_to "Remove", user_recipe_path(recipe.user, recipe), method: :delete,
                             disabled: recipe.user != current_user, class: "disabled" %>

@@ -223,6 +223,10 @@ input:checked + .slider::before {
   cursor: not-allowed;
 }
 
+.remove-btn {
+  background-color:#fff;
+}
+
 button {
   padding: 10px;
   margin: 10px 0;
@@ -332,4 +336,9 @@ h1 {
   padding: 20px;
   margin-left: 20%;
   margin-top: 2%;
+}
+
+.shoping-list {
+  max-width: 50%;
+  margin: 0 auto;
 }

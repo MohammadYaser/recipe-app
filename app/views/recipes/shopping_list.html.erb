@@ -1,48 +1,40 @@
 <!-- Heading for the shopping list page, displaying the recipe name -->
 <h1><%= @recipe.name %> Shopping List</h1>
 
-<!-- Container for the shopping list content -->
-<div class="container">
-  <!-- Checking if there are no missing ingredients -->
-  <% if @data[:total_items] == 0 %> 
-    <!-- Message for when all ingredients are available -->
-    <div class="shopping">
-      <h3>You have all the ingredients you need!</h3>
-    </div>
-  <% else %>
-    <!-- Displaying information about missing ingredients -->
-    <div class="shopping">
-      <h3>Total food items: <%= @data[:total_items] %></h3>
-      <h3>Total price: $<%= @data[:total_price] %></h3>
+<div class="shopping">
+      <h3>Total food items: <%= @count_of_items %></h3>
+      <h3>Total price: $<%= @total %></h3>
     </div>
 
-    <!-- Container for the table displaying missing ingredients -->
-    <div class="table-container">
-      <table>
-        <thead>
-            <tr>
-              <!-- Table header columns for Food, Quantity, and Price -->
-              <th>Food</th>
-              <th>Quantity</th>
-              <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-          <!-- Looping through the missing_foods collection to display each missing ingredient -->
-          <% @missing_foods.each do |missing| %>
-            <tr>
-              <!-- Displaying the name of the missing food -->
-              <td><%= missing.food.name %> </td>
+<div class="shoping-list">
+    <table class="foods-table">
+      <thead>
+          <!-- Table header columns for Food, Quantity, Value, and Actions -->
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>    
+        <!-- Looping through the recipe_foods collection to display each ingredient -->
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+              <!-- Displaying the name of the food in the recipe -->
+              <td><%= recipe_food.food.name %></td>
               
-              <!-- Displaying the quantity and measurement unit of the missing food -->
-              <td><%= missing.quantity %> <%= missing.food.measurement_unit %> </td>
+              <!-- Displaying the quantity and measurement unit of the food -->
+              <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %> </td>
               
-              <!-- Calculating and displaying the total price of the missing food -->
-              <td>$ <%= missing.food.price * missing.quantity %> </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-</div>
+              <!-- Calculating and displaying the total value of the food in the recipe -->
+              <td>$ <%= recipe_food.food.price * recipe_food.quantity %></td>
+              
+              <!-- Button to remove the food from the recipe -->
+              <td><%= button_to 'Remove', user_recipe_recipe_food_path(@user, @recipe, recipe_food), method: :delete, disabled: @user != current_user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
