@@ -1,0 +1,25 @@
+<!-- Container for the form to add ingredients to a recipe -->
+<div class="form">
+  <!-- Heading for the form -->
+  <h1>Add the Ingredients of recipe</h1>
+  
+  <!-- Form for adding ingredients, using the user, recipe, and recipe_food models -->
+  <%= form_with(model: [@user, @recipe, @recipe_food], url: user_recipe_recipe_foods_path(@user, @recipe), local: true, method: :post) do |f| %>
+    <!-- Field for selecting a food from the available options -->
+    <div class="food">
+      <%= f.label :food_id %> :
+      <%= f.collection_select :food_id, Food.all, :id, :name %>
+    </div>
+
+    <!-- Field for entering the quantity of the selected food -->
+    <div class="food">
+      <%= f.label :quantity %> :
+      <%= f.number_field :quantity, in: 1..1000, step: 1, autocomplete: "off" %>
+    </div>
+
+    <!-- Submit button to add the ingredient to the recipe -->
+    <div>
+      <%= f.submit "Add Ingredient" %>
+    </div>
+  <% end %>
+</div>

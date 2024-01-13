@@ -1,0 +1,42 @@
+<!-- Container for the recipes -->
+<div class="container">
+  <!-- Heading for the recipes section -->
+  <h1>Recipes</h1>
+  
+  <!-- Container for the table displaying recipes -->
+  <div class="table-container">
+    <!-- Table displaying recipes -->
+    <table class="foods-table">
+      <!-- Table header with column names -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <!-- Table body with recipe details -->
+      <tbody>
+        <!-- Loop through each recipe and display its information -->
+        <% @recipes.each do |recipe| %>
+          <tr>
+            <!-- Display the name of the recipe with a link to its details -->
+            <td>
+              <%= link_to recipe.name, user_recipe_path(@user, recipe), class: "recipe-name" %>
+              <%= button_to "Remove", user_recipe_path(@user, recipe), method: :delete%>
+            </td>
+            
+            
+            <!-- Display a truncated description of the recipe -->
+            <td><%= truncate(recipe.description, length: 30) %></td>
+            
+            <!-- Button to remove the recipe -->
+            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Link to create a new recipe -->
+  <%= link_to "New Recipe", new_user_recipe_path(@user), class: "add-food-link" %>
+</div>

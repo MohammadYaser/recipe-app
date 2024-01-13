@@ -1,0 +1,7 @@
+<div class="welcome-container">
+  <% if user_signed_in? %>
+    <div class="welcome-message">
+      <p>Hello, <%= current_user.name %>! Welcome to our wonderful app.</p>
+    </div>
+  <% end %>
+</div>

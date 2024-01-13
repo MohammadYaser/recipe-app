@@ -1,0 +1,37 @@
+<!-- Heading for the 'Add a food' page -->
+<h1>Add a food</h1>
+
+<!-- Container for the form -->
+<div class="form">
+  <!-- Form using Rails form_with helper, submitting to the user_foods_path with a post method -->
+  <%= form_with(model: @food, url: user_foods_path(@user), local: true, method: :post) do |f| %>  
+    <!-- Input field for the name of the food -->
+    <div>
+      <%= f.label :name %> <br />
+      <%= f.text_field :name, autocomplete: "off" %>
+    </div>
+
+    <!-- Dropdown for selecting the measurement unit of the food -->
+    <div>
+      <%= f.label :measurement_unit %> <br />
+      <%= f.select :measurement_unit, ['mg', 'gr', 'kg', 'oz', 'lb', 'units'] %>
+    </div>
+
+    <!-- Input field for entering the price of the food -->
+    <div>
+      <%= f.label :price %> <br />
+      <%= f.number_field :price, in: 1..1000, step: 1, autocomplete: "off" %>
+    </div>
+
+    <!-- Input field for entering the quantity of the food -->
+    <div>
+      <%= f.label :quantity %> <br />
+      <%= f.number_field :quantity, in: 1..1000, step: 1, autocomplete: "off" %>
+    </div>
+
+    <!-- Submit button to submit the form -->
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

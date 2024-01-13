@@ -1,0 +1,40 @@
+<!-- Heading for the shopping list page, displaying the recipe name -->
+<h1><%= @recipe.name %> Shopping List</h1>
+
+<div class="shopping">
+      <h3>Total food items: <%= @count_of_items %></h3>
+      <h3>Total price: $<%= @total %></h3>
+    </div>
+
+<div class="shoping-list">
+    <table class="foods-table">
+      <thead>
+          <!-- Table header columns for Food, Quantity, Value, and Actions -->
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>    
+        <!-- Looping through the recipe_foods collection to display each ingredient -->
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+              <!-- Displaying the name of the food in the recipe -->
+              <td><%= recipe_food.food.name %></td>
+              
+              <!-- Displaying the quantity and measurement unit of the food -->
+              <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %> </td>
+              
+              <!-- Calculating and displaying the total value of the food in the recipe -->
+              <td>$ <%= recipe_food.food.price * recipe_food.quantity %></td>
+              
+              <!-- Button to remove the food from the recipe -->
+              <td><%= button_to 'Remove', user_recipe_recipe_food_path(@user, @recipe, recipe_food), method: :delete, disabled: @user != current_user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+

@@ -1,0 +1,45 @@
+<!-- Heading for the recipe creation section -->
+<h1>Create your recipe</h1>
+
+<!-- Form for creating a new recipe -->
+<div class="form">
+  <!-- Form structure using form_with helper -->
+  <%= form_with(model: @recipe, url: user_recipes_path(@user), local: true, method: :post) do |f| %>
+    
+    <!-- Input field for the name of the recipe -->
+    <div>
+      <%= f.label :name %> <br />
+      <%= f.text_field :name, autocomplete: "off" %>
+    </div>
+
+    <!-- Text area for the description of the recipe -->
+    <div>
+      <%= f.label :description %> <br />
+      <%= f.text_area :description %>
+    </div>
+
+    <!-- Input field for the preparation time of the recipe -->
+    <div>
+      <%= f.label :preparation_time %> <br />
+      <%= f.number_field :preparation_time, in: 1..1000, step: 1, autocomplete: "off" %>
+    </div>
+
+    <!-- Input field for the cooking time of the recipe -->
+    <div>
+      <%= f.label :cooking_time %> <br />
+      <%= f.number_field :cooking_time, in: 1..1000, step: 1, autocomplete: "off" %>
+    </div>
+
+    <!-- Checkbox to determine if the recipe is public -->
+    <div>
+      <%= f.label :public %>
+      <%= f.check_box :public %>
+    </div>
+
+    <!-- Submission button -->
+    <div>
+      <%= f.submit class: "button" %>
+    </div>
+    
+  <% end %>
+</div>

@@ -1,0 +1,344 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.img {
+  background-image: url('recipe_app.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 670px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3498db; /* Set your desired background color */
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+  display: flex;
+}
+
+.nav-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #fff; /* Set your desired link color */
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f39c12; /* Set your desired link hover color */
+}
+
+.logout {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.03em;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+  background-color: transparent;
+  color: #f39c12;
+}
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: -10%;
+}
+
+.welcome-message {
+  text-align: center;
+  background-color: #f8f9fa; /* Match the navbar background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-message p {
+  margin: 0;
+  color: black; /* Match the navbar text color */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.button {
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Adjusted margin for better spacing between elements */
+.nav-item > * {
+  margin: 0 0.5rem;
+}
+
+/* Add this CSS to your existing stylesheet or create a new one */
+
+.foods-heading {
+  color: #3498db; /* Match the navbar text color */
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.foods-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.foods-table th,
+.foods-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #bdc3c7; /* Set your desired border color */
+}
+
+.foods-table th {
+  background-color: #3498db; /* Match the navbar background color */
+  color: #fff;
+}
+
+.foods-table td {
+  background-color: #f9f9f9; /* Set an alternate background color for better readability */
+}
+
+.remove-button {
+  background-color: #e74c3c; /* Set your desired button color */
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #c0392b; /* Set the hover background color */
+}
+
+.add-food-link {
+  padding: 10px;
+  text-align: center;
+  background-color: #3498db; /* Match the navbar background color */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin: 10px 0;
+}
+
+.add-food-link:hover {
+  background-color: #2980b9; /* Set the hover background color */
+}
+
+.float-right {
+  margin-left: 29%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* style for toggle button */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 17px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #3498db;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider::before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.switch input:disabled + .slider {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  background-color: #fff;
+}
+
+button {
+  padding: 10px;
+  margin: 10px 0;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ec2416;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.resipe-name:hover {
+  color: #2196f3;
+  font-weight: bolder;
+}
+
+.details {
+  text-align: justify;
+}
+
+.details > * {
+  margin: 1rem auto;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-around;
+  gap: 1em;
+  width: 50%;
+}
+
+.genral-detal {
+  display: flex;
+  left: 50%;
+  width: 50%;
+  align-items: center;
+}
+
+.genral-detal > * {
+  margin: 1rem auto;
+}
+
+/* Add some basic styling to the form */
+.form {
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  gap: 1em;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Add some hover effect to the submit button */
+input[type="submit"]:hover {
+  background-color: #2d80b8;
+}
+
+.food {
+  padding: 12px;
+}
+
+/* Style for foods */
+
+h1 {
+  text-align: center;
+  margin: 12px;
+}
+
+.shopping {
+  display: flex;
+  width: 100%;
+  margin: 4em 0 1em 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.shopping > * {
+  margin: 0 2em;
+}
+
+.card {
+  width: 60%;
+  background-color: #fff; /* Set your desired background color */
+  border-radius: 10px; /* Optional: Add rounded corners for a nicer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values for the shadow */
+
+  /* Additional styling, adjust as needed */
+  padding: 20px;
+  margin-left: 20%;
+  margin-top: 2%;
+}
+
+.shoping-list {
+  max-width: 50%;
+  margin: 0 auto;
+}

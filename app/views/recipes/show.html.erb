@@ -1,0 +1,75 @@
+<!-- Container for the recipe details page -->
+<div class="container card">
+  <!-- Displaying the recipe name as the heading -->
+  <h1><%= @recipe.name %></h1>
+  
+  <!-- Container for general details of the recipe -->
+  <div class="genral-detal">
+    <!-- Details section containing preparation time, cooking time, and description -->
+    <div class="details">
+      <h3>Preparation time: <%= @recipe.preparation_time %></h3>
+      <h3>Cooking time: <%= @recipe.cooking_time %></h3>
+      <h3><%= @recipe.description %></h3>
+    </div>
+    
+    <!-- Form section for updating the 'public' attribute of the recipe -->
+    <div>
+      <%= form_with(model: @recipe, url: user_recipe_path(@user, @recipe), local: true, method: :patch) do |f| %>
+        <div>
+          <!-- Checkbox for the 'public' attribute with a toggle switch style -->
+          <p><%= f.label :public %>
+            <label class="switch">
+              <%= f.hidden_field :public, value: false %>
+              <%= f.check_box :public, { onchange: 'this.form.submit()', 
+                                        disabled: @user != current_user }, true, false %>
+              <span class="slider"></span>
+            </label>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Buttons section for generating a shopping list and adding ingredients -->
+  <div class="btns">
+    <%= button_to "Generate Shopping List", shopping_list_user_recipe_path(@user, @recipe), method: :get, class: "add-food-link"%>
+    <%= button_to "Add ingredients", new_user_recipe_recipe_food_path(@user, @recipe), class: "add-food-link", 
+                  method: :get, disabled: @recipe.user != current_user  %>
+  </div>
+
+  <!-- Horizontal rule for visual separation -->
+  <hr>
+
+  <!-- Table section for displaying recipe ingredients -->
+  <div>
+    <table class="foods-table">
+      <thead>
+          <!-- Table header columns for Food, Quantity, Value, and Actions -->
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>    
+        <!-- Looping through the recipe_foods collection to display each ingredient -->
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+              <!-- Displaying the name of the food in the recipe -->
+              <td><%= recipe_food.food.name %></td>
+              
+              <!-- Displaying the quantity and measurement unit of the food -->
+              <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %> </td>
+              
+              <!-- Calculating and displaying the total value of the food in the recipe -->
+              <td>$ <%= recipe_food.food.price * recipe_food.quantity %></td>
+              
+              <!-- Button to remove the food from the recipe -->
+              <td><%= button_to 'Remove', user_recipe_recipe_food_path(@user, @recipe, recipe_food), method: :delete, disabled: @user != current_user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
