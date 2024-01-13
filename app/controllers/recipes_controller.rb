@@ -55,7 +55,6 @@ class RecipesController < ApplicationController
     @recipe = Recipe.includes([recipe_foods: [:food]]).find(params[:id])
     user_foods = current_user.foods
 
-
     missing_foods = @recipe.recipe_foods.reject { |recipe_food| user_foods.include?(recipe_food.food) }
 
     @data = {

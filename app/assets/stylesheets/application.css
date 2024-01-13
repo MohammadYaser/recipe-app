@@ -224,7 +224,7 @@ input:checked + .slider::before {
 }
 
 .remove-btn {
-  background-color:#fff;
+  background-color: #fff;
 }
 
 button {
