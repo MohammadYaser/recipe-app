@@ -12,7 +12,6 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <!-- Table body with recipe details -->
@@ -21,13 +20,17 @@
         <% @recipes.each do |recipe| %>
           <tr>
             <!-- Display the name of the recipe with a link to its details -->
-            <td><%= link_to recipe.name, user_recipe_path(@user, recipe), class: "recipe-name" %></td>
+            <td>
+              <%= link_to recipe.name, user_recipe_path(@user, recipe), class: "recipe-name" %>
+              <%= button_to "Remove", user_recipe_path(@user, recipe), method: :delete%>
+            </td>
+            
             
             <!-- Display a truncated description of the recipe -->
             <td><%= truncate(recipe.description, length: 30) %></td>
             
             <!-- Button to remove the recipe -->
-            <td><%= button_to "Remove", user_recipe_path(@user, recipe), method: :delete %></td>
+            
           </tr>
         <% end %>
       </tbody>

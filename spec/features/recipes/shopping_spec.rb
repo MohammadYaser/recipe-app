@@ -31,11 +31,13 @@ RSpec.describe 'Testing Recipe#show view, it', type: :feature do
 
   # Test: It should visit the shopping list and display the correct information.
   it 'should visit the shopping list' do
-    # Click the 'Generate Shopping List' button and
-    # check for the expected content on the shopping list page.
+    # Click the 'Generate Shopping List' button.
     click_button('Generate Shopping List')
-    expect(page).to have_content('Total food items: 1')
-    expect(page).to have_content('Total price: $100')
+
+    # Check for the expected content on the shopping list page.
+    expect(page).to have_content('Total food items: 2') # Assuming both @food and @food2 are added
+    expect(page).to have_content('Total price: $110') # (10 * $10) + (10 * $1)
     expect(page).to have_content('Test Food 10 test')
+    expect(page).to have_content('Food #2 10 unit')
   end
 end
