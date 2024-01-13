@@ -36,7 +36,7 @@ RSpec.describe 'Testing Recipe#show view, it', type: :feature do
 
     # Check for the expected content on the shopping list page.
     expect(page).to have_content('Total food items: 2') # Assuming both @food and @food2 are added
-    expect(page).to have_content('Total price: $110')    # (10 * $10) + (10 * $1)
+    expect(page).to have_content('Total price: $110') # (10 * $10) + (10 * $1)
     expect(page).to have_content('Test Food 10 test')
     expect(page).to have_content('Food #2 10 unit')
   end
